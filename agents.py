@@ -1,5 +1,5 @@
 from langchain.agents import create_agent
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search, scrape_url
@@ -8,15 +8,14 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent / ".env", override=True)
-grok_api_key = os.getenv("GROK_API_KEY")
-if not grok_api_key:
-    raise RuntimeError("Set GROK_API_KEY in .env before running the pipeline.")
+groq_api_key = os.getenv("GROQ_API_KEY") or os.getenv("GROK_API_KEY")
+if not groq_api_key:
+    raise RuntimeError("Set GROQ_API_KEY in .env before running the pipeline.")
 
-llm = ChatOpenAI(
-    model=os.getenv("GROK_MODEL", "grok-3-mini"),
+llm = ChatGroq(
+    model=os.getenv("GROQ_MODEL", "openai/gpt-oss-120b"),
     temperature=0,
-    api_key=grok_api_key,
-    base_url="https://api.x.ai/v1",
+    api_key=groq_api_key,
 )
 
 # first agent 
