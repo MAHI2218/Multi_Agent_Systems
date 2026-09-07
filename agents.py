@@ -1,20 +1,22 @@
 from langchain.agents import create_agent
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search, scrape_url
-import os 
-from  dotenv import load_dotenv
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-load_dotenv()
-gemini_api_key = os.getenv("GEMINI_API_KEY")
-if not gemini_api_key:
-    raise RuntimeError("Set GEMINI_API_KEY in .env before running the pipeline.")
+load_dotenv(Path(__file__).resolve().parent / ".env", override=True)
+grok_api_key = os.getenv("GROK_API_KEY")
+if not grok_api_key:
+    raise RuntimeError("Set GROK_API_KEY in .env before running the pipeline.")
 
-llm = ChatGoogleGenerativeAI(
-    model="gemini-3.6-flash",
+llm = ChatOpenAI(
+    model=os.getenv("GROK_MODEL", "grok-3-mini"),
     temperature=0,
-    google_api_key=gemini_api_key,
+    api_key=grok_api_key,
+    base_url="https://api.x.ai/v1",
 )
 
 # first agent 
