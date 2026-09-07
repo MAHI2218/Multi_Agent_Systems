@@ -1,0 +1,34 @@
+# Core LangChain packages
+streamlit
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-google-genai
+langgraph
+
+# OpenAI
+openai
+
+# Web Search
+tavily-python
+langchain-tavily
+
+# Web Scraping
+beautifulsoup4
+lxml
+requests
+
+# Environment Variables
+python-dotenv
+
+# HTTP / Async support
+httpx
+aiohttp
+
+# Data Processing
+pydantic
+pydantic-settings
+
+# Optional: useful for research/document processing
+tiktoken
